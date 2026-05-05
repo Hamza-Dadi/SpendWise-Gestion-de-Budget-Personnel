@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpendWise | Ajouter</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="add">
+    <aside class="sidebar">
+      <a class="brand" href="index.html" aria-label="SpendWise dashboard">
+        <span class="brand-mark">S</span>
+        <span>
+          <strong>SpendWise</strong>
+          <small>Budget personnel</small>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Navigation principale">
+        <a class="nav-link" href="index.html">
+          <i data-lucide="layout-dashboard"></i>
+          Dashboard
+        </a>
+        <a class="nav-link" href="transactions.html">
+          <i data-lucide="list-filter"></i>
+          Transactions
+        </a>
+        <a class="nav-link active" href="ajouter.html">
+          <i data-lucide="plus-circle"></i>
+          Ajouter
+        </a>
+      </nav>
+    </aside>
+
+    <main class="app-shell narrow">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Saisie</p>
+          <h1>Nouvelle transaction</h1>
+        </div>
+      </header>
+
+      <section class="panel form-panel">
+        <form id="transactionForm" class="form-stack">
+          <div class="segmented" role="radiogroup" aria-label="Type de transaction">
+            <label>
+              <input type="radio" name="transactionType" value="depense" checked />
+              <span>Depense</span>
+            </label>
+            <label>
+              <input type="radio" name="transactionType" value="revenu" />
+              <span>Revenu</span>
+            </label>
+          </div>
+
+          <div class="form-grid">
+            <label class="control">
+              <span>Categorie</span>
+              <select id="categoryInput" required></select>
+            </label>
+            <label class="control">
+              <span>Montant</span>
+              <input id="amountInput" type="number" min="0.01" step="0.01" placeholder="0.00" required />
+            </label>
+            <label class="control">
+              <span>Date</span>
+              <input id="dateInput" type="date" required />
+            </label>
+          </div>
+
+          <label class="control">
+            <span>Description</span>
+            <input id="descriptionInput" type="text" maxlength="255" placeholder="Courses supermarch..." required />
+          </label>
+
+          <div class="form-actions">
+            <button id="resetForm" class="button ghost" type="reset">
+              <i data-lucide="eraser"></i>
+              Effacer
+            </button>
+            <button class="button primary" type="submit">
+              <i data-lucide="check"></i>
+              Ajouter
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="quick-preview" aria-label="Apercu">
+        <article class="metric">
+          <span class="metric-label">Solde apres ajout</span>
+          <strong id="previewBalance">0,00 MAD</strong>
+          <small>Calcule en direct</small>
+        </article>
+        <article class="metric">
+          <span class="metric-label">Total transactions</span>
+          <strong id="previewCount">0</strong>
+          <small>Donnees locales</small>
+        </article>
+      </section>
+
+      <p id="formMessage" class="toast" role="status" aria-live="polite"></p>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

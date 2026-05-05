@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpendWise | Transactions</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="transactions">
+    <aside class="sidebar">
+      <a class="brand" href="index.html" aria-label="SpendWise dashboard">
+        <span class="brand-mark">S</span>
+        <span>
+          <strong>SpendWise</strong>
+          <small>Budget personnel</small>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Navigation principale">
+        <a class="nav-link" href="index.html">
+          <i data-lucide="layout-dashboard"></i>
+          Dashboard
+        </a>
+        <a class="nav-link active" href="transactions.html">
+          <i data-lucide="list-filter"></i>
+          Transactions
+        </a>
+        <a class="nav-link" href="ajouter.html">
+          <i data-lucide="plus-circle"></i>
+          Ajouter
+        </a>
+      </nav>
+    </aside>
+
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Historique</p>
+          <h1>Transactions</h1>
+        </div>
+        <a class="button primary" href="ajouter.html">
+          <i data-lucide="plus"></i>
+          Nouvelle
+        </a>
+      </header>
+
+      <section class="panel filters-panel" aria-label="Filtres des transactions">
+        <label class="control">
+          <span>Mois</span>
+          <input id="filterMonth" type="month" />
+        </label>
+        <label class="control">
+          <span>Type</span>
+          <select id="filterType">
+            <option value="all">Tous</option>
+            <option value="depense">Depense</option>
+            <option value="revenu">Revenu</option>
+          </select>
+        </label>
+        <label class="control">
+          <span>Categorie</span>
+          <select id="filterCategory">
+            <option value="all">Toutes</option>
+          </select>
+        </label>
+        <label class="control search-control">
+          <span>Recherche</span>
+          <input id="filterSearch" type="search" placeholder="Description..." />
+        </label>
+        <button id="resetFilters" class="button ghost" type="button">
+          <i data-lucide="rotate-ccw"></i>
+          Reset
+        </button>
+        <button id="exportCsv" class="button ghost" type="button">
+          <i data-lucide="download"></i>
+          CSV
+        </button>
+      </section>
+
+      <section class="panel table-panel">
+        <div class="panel-heading table-heading">
+          <div>
+            <p class="eyebrow">Liste filtree</p>
+            <h2 id="transactionCount">0 transaction</h2>
+          </div>
+          <span id="filteredTotal" class="soft-badge">0,00 MAD</span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Categorie</th>
+                <th>Type</th>
+                <th class="amount-cell">Montant</th>
+                <th class="actions-cell">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="transactionsBody"></tbody>
+          </table>
+        </div>
+        <p id="emptyTransactions" class="empty-state">Aucune transaction pour ces filtres.</p>
+      </section>
+    </main>
+
+    <dialog id="editDialog" class="dialog">
+      <form id="editTransactionForm" method="dialog" class="form-stack">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">Modification</p>
+            <h2>Editer une transaction</h2>
+          </div>
+          <button class="icon-button" type="button" data-close-dialog aria-label="Fermer">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+
+        <input id="editId" type="hidden" />
+        <div class="form-grid">
+          <label class="control">
+            <span>Type</span>
+            <select id="editType" required>
+              <option value="depense">Depense</option>
+              <option value="revenu">Revenu</option>
+            </select>
+          </label>
+          <label class="control">
+            <span>Categorie</span>
+            <select id="editCategory" required></select>
+          </label>
+          <label class="control">
+            <span>Montant</span>
+            <input id="editAmount" type="number" min="0.01" step="0.01" required />
+          </label>
+          <label class="control">
+            <span>Date</span>
+            <input id="editDate" type="date" required />
+          </label>
+        </div>
+        <label class="control">
+          <span>Description</span>
+          <input id="editDescription" type="text" maxlength="255" required />
+        </label>
+        <div class="dialog-actions">
+          <button class="button ghost" type="button" data-close-dialog>Annuler</button>
+          <button class="button primary" type="submit">
+            <i data-lucide="save"></i>
+            Enregistrer
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

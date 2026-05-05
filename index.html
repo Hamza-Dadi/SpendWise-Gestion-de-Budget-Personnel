@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpendWise | Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="dashboard">
+    <aside class="sidebar">
+      <a class="brand" href="index.html" aria-label="SpendWise dashboard">
+        <span class="brand-mark">S</span>
+        <span>
+          <strong>SpendWise</strong>
+          <small>Budget personnel</small>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Navigation principale">
+        <a class="nav-link active" href="index.html">
+          <i data-lucide="layout-dashboard"></i>
+          Dashboard
+        </a>
+        <a class="nav-link" href="transactions.html">
+          <i data-lucide="list-filter"></i>
+          Transactions
+        </a>
+        <a class="nav-link" href="ajouter.html">
+          <i data-lucide="plus-circle"></i>
+          Ajouter
+        </a>
+      </nav>
+    </aside>
+
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Vue mensuelle</p>
+          <h1>Dashboard</h1>
+        </div>
+
+        <label class="control compact">
+          <span>Mois</span>
+          <input id="dashboardMonth" type="month" />
+        </label>
+      </header>
+
+      <section class="summary-grid" aria-label="Resume budgetaire">
+        <article class="metric">
+          <span class="metric-label">Solde courant</span>
+          <strong id="balanceValue">0,00 MAD</strong>
+          <small id="balanceHint">Tous les mouvements</small>
+        </article>
+        <article class="metric income">
+          <span class="metric-label">Revenus du mois</span>
+          <strong id="incomeValue">0,00 MAD</strong>
+          <small>Somme des entrees</small>
+        </article>
+        <article class="metric expense">
+          <span class="metric-label">Depenses du mois</span>
+          <strong id="expenseValue">0,00 MAD</strong>
+          <small>Somme des sorties</small>
+        </article>
+        <article class="metric">
+          <span class="metric-label">Transactions</span>
+          <strong id="countValue">0</strong>
+          <small id="countHint">Sur le mois choisi</small>
+        </article>
+      </section>
+
+      <section class="dashboard-layout">
+        <div class="panel chart-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Categories</p>
+              <h2>Repartition des depenses</h2>
+            </div>
+            <span id="chartTotal" class="soft-badge">0,00 MAD</span>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="categoryChart" aria-label="Graphique depenses par categorie"></canvas>
+            <div id="chartFallback" class="chart-fallback"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Dernieres operations</p>
+              <h2>Mouvements recents</h2>
+            </div>
+            <a class="button ghost" href="transactions.html">
+              <i data-lucide="arrow-right"></i>
+              Voir
+            </a>
+          </div>
+          <div id="recentList" class="recent-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
