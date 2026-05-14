@@ -183,6 +183,7 @@ button:hover {
   justify-content: space-between;
   gap: 18px;
   margin-bottom: 24px;
+  min-width: 0;
 }
 
 h1,
@@ -451,6 +452,7 @@ h2 {
 .control {
   display: grid;
   gap: 7px;
+  min-width: 0;
 }
 
 .control span {
@@ -463,6 +465,8 @@ h2 {
 .control input,
 .control select {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   min-height: 42px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -764,6 +768,7 @@ th {
 
   .app-shell {
     width: 100%;
+    max-width: 100%;
     margin-left: 0;
     padding: 24px 16px 40px;
   }
@@ -825,7 +830,7 @@ th {
   }
 
   h1 {
-    font-size: 1.9rem;
+    font-size: 2.22rem;
     line-height: 1;
   }
 
@@ -838,17 +843,25 @@ th {
     width: 100%;
   }
 
+  .control.compact {
+    max-width: 100%;
+    align-self: stretch;
+  }
+
   .control span {
-    font-size: 0.72rem;
+    font-size: 0.78rem;
   }
 
   .control input,
   .control select {
-    min-height: 40px;
+    min-height: 44px;
+    font-size: 1rem;
   }
 
   .app-shell {
-    padding: 20px 14px calc(104px + env(safe-area-inset-bottom));
+    width: 100%;
+    max-width: 100%;
+    padding: 20px 16px calc(112px + env(safe-area-inset-bottom));
   }
 
   .summary-grid,
@@ -867,21 +880,21 @@ th {
   }
 
   .metric {
-    min-height: 92px;
-    padding: 14px;
+    min-height: 120px;
+    padding: 18px;
   }
 
   .metric strong {
-    margin-top: 12px;
-    font-size: 1.28rem;
+    margin-top: 16px;
+    font-size: 1.58rem;
   }
 
   .metric-label {
-    font-size: 0.72rem;
+    font-size: 0.78rem;
   }
 
   .metric small {
-    font-size: 0.88rem;
+    font-size: 1rem;
   }
 
   .panel,
