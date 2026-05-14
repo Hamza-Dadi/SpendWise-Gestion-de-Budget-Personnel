@@ -1,5 +1,6 @@
 const CATEGORY_KEY = "spendwise.categories";
 const TRANSACTION_KEY = "spendwise.transactions";
+const THEME_KEY = "spendwise.theme";
 
 const DEFAULT_CATEGORIES = [
   { id: 1, nom: "Alimentation", type: "depense" },
@@ -159,6 +160,101 @@ function initIcons() {
   }
 }
 
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+function getInitialTheme() {
+  const storedTheme = localStorage.getItem(THEME_KEY);
+  if (storedTheme === "dark" || storedTheme === "light") {
+    return storedTheme;
+  }
+
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function initTheme() {
+  applyTheme(getInitialTheme());
+
+  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const currentTheme = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+      applyTheme(currentTheme === "dark" ? "light" : "dark");
+    });
+  });
+}
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  localStorage.setItem(THEME_KEY, theme);
+  updateThemeButtons(theme);
+  updateChartTheme();
+}
+
+function updateThemeButtons(theme) {
+  const darkMode = theme === "dark";
+
+  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+    button.setAttribute("aria-label", darkMode ? "Desactiver le mode sombre" : "Activer le mode sombre");
+    button.setAttribute("title", darkMode ? "Mode clair" : "Mode sombre");
+
+    const label = button.querySelector("span");
+    if (label) {
+      label.textContent = darkMode ? "Mode clair" : "Mode sombre";
+    }
+
+    const icon = button.querySelector("i");
+    if (icon) {
+      icon.setAttribute("data-lucide", darkMode ? "sun" : "moon");
+    }
+  });
+
+  initIcons();
+}
+
+function updateChartTheme() {
+  if (!state.chart) return;
+
+  state.chart.options.plugins.legend.labels.color = cssVar("--text");
+  state.chart.data.datasets.forEach((dataset) => {
+    dataset.borderColor = cssVar("--surface");
+  });
+  state.chart.update();
+}
+
+function initMobileNavigation() {
+  const menuButton = document.querySelector("[data-menu-toggle]");
+  const backdrop = document.querySelector("[data-nav-backdrop]");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  const setOpen = (open) => {
+    document.body.classList.toggle("nav-open", open);
+
+    if (menuButton) {
+      menuButton.setAttribute("aria-expanded", String(open));
+      const icon = menuButton.querySelector("i");
+      if (icon) {
+        icon.setAttribute("data-lucide", open ? "x" : "menu");
+      }
+      initIcons();
+    }
+  };
+
+  menuButton?.addEventListener("click", () => setOpen(!document.body.classList.contains("nav-open")));
+  backdrop?.addEventListener("click", () => setOpen(false));
+  navLinks.forEach((link) => link.addEventListener("click", () => setOpen(false)));
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      setOpen(false);
+    }
+  });
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 980) {
+      setOpen(false);
+    }
+  });
+}
+
 function initDashboard() {
   const monthInput = document.getElementById("dashboardMonth");
   monthInput.value = currentMonth();
@@ -219,7 +315,7 @@ function renderChart(categoryTotals) {
 
   const labels = Object.keys(categoryTotals);
   const values = Object.values(categoryTotals);
-  const colors = ["#167a54", "#376b9b", "#c48b1e", "#b84f43", "#6f5aa8", "#2f806c"];
+  const colors = [cssVar("--accent"), cssVar("--green"), cssVar("--blue"), cssVar("--amber"), cssVar("--violet"), cssVar("--red")];
 
   fallback.innerHTML = buildFallbackBars(labels, values, colors);
   fallback.classList.toggle("show", !window.Chart || !labels.length);
@@ -237,8 +333,8 @@ function renderChart(categoryTotals) {
       datasets: [
         {
           data: values.length ? values : [1],
-          backgroundColor: labels.length ? colors : ["#dce3dc"],
-          borderColor: "#ffffff",
+          backgroundColor: labels.length ? colors : [cssVar("--line")],
+          borderColor: cssVar("--surface"),
           borderWidth: 4,
         },
       ],
@@ -250,7 +346,7 @@ function renderChart(categoryTotals) {
           position: "bottom",
           labels: {
             boxWidth: 12,
-            color: "#1e2420",
+            color: cssVar("--text"),
             font: { family: "Inter, sans-serif", weight: "700" },
           },
         },
@@ -558,6 +654,9 @@ function escapeHtml(value) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const page = document.body.dataset.page;
+
+  initTheme();
+  initMobileNavigation();
 
   if (page === "dashboard") initDashboard();
   if (page === "transactions") initTransactionsPage();

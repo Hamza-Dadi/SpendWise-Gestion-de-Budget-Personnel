@@ -7,16 +7,40 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-page="dashboard">
-    <aside class="sidebar">
-      <a class="brand" href="index.html" aria-label="SpendWise dashboard">
-        <span class="brand-mark">S</span>
+    <header class="mobile-header">
+      <a class="brand mobile-brand" href="index.html" aria-label="SpendWise dashboard">
         <span>
           <strong>SpendWise</strong>
           <small>Budget personnel</small>
         </span>
       </a>
 
-      <nav class="nav" aria-label="Navigation principale">
+      <div class="mobile-actions">
+        <button class="icon-button theme-toggle" type="button" data-theme-toggle aria-label="Activer le mode sombre" title="Mode sombre">
+          <i data-lucide="moon"></i>
+        </button>
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-controls="mainNav" aria-expanded="false" aria-label="Menu de navigation" title="Menu">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="nav-backdrop" data-nav-backdrop></div>
+
+    <aside class="sidebar">
+      <a class="brand" href="index.html" aria-label="SpendWise dashboard">
+        <span>
+          <strong>SpendWise</strong>
+          <small>Budget personnel</small>
+        </span>
+      </a>
+
+      <button class="button ghost theme-toggle sidebar-theme" type="button" data-theme-toggle>
+        <i data-lucide="moon"></i>
+        <span>Mode sombre</span>
+      </button>
+
+      <nav id="mainNav" class="nav" aria-label="Navigation principale">
         <a class="nav-link active" href="index.html">
           <i data-lucide="layout-dashboard"></i>
           Dashboard
