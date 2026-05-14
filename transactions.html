@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SpendWise | Transactions</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20260514-mobile-month" />
   </head>
   <body data-page="transactions">
     <header class="mobile-header">
@@ -71,7 +71,7 @@
       <section class="panel filters-panel" aria-label="Filtres des transactions">
         <label class="control">
           <span>Mois</span>
-          <input id="filterMonth" type="month" />
+          <select id="filterMonth" class="month-select"></select>
         </label>
         <label class="control">
           <span>Type</span>
@@ -178,6 +178,6 @@
     </dialog>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script src="app.js"></script>
+    <script src="app.js?v=20260514-mobile-month"></script>
   </body>
 </html>

@@ -498,6 +498,16 @@ h2 {
   transform: translateY(-1px);
 }
 
+.month-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: none;
+  text-align: center;
+  text-align-last: center;
+  font-weight: 850;
+  padding-inline: 14px;
+}
+
 .control.compact {
   width: 180px;
 }

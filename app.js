@@ -103,6 +103,48 @@ function currentMonth() {
   return today().slice(0, 7);
 }
 
+function monthValueFromDate(date) {
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  return `${date.getFullYear()}-${month}`;
+}
+
+function monthLabel(monthValue) {
+  const [year, month] = monthValue.split("-").map(Number);
+  const label = new Intl.DateTimeFormat("fr-FR", {
+    month: "long",
+    year: "numeric",
+  }).format(new Date(year, month - 1, 1));
+
+  return label.charAt(0).toUpperCase() + label.slice(1);
+}
+
+function getMonthValues() {
+  const values = new Set([currentMonth()]);
+  state.transactions.forEach((transaction) => values.add(transaction.date_transaction.slice(0, 7)));
+
+  const now = new Date();
+  for (let offset = -2; offset <= 2; offset += 1) {
+    const date = new Date(now.getFullYear(), now.getMonth() + offset, 1);
+    values.add(monthValueFromDate(date));
+  }
+
+  return [...values].sort((a, b) => b.localeCompare(a));
+}
+
+function fillMonthSelect(select, selectedValue = currentMonth(), includeAll = false) {
+  if (!select) return;
+
+  const monthOptions = getMonthValues()
+    .map((month) => {
+      const selected = month === selectedValue ? "selected" : "";
+      return `<option value="${month}" ${selected}>${monthLabel(month)}</option>`;
+    })
+    .join("");
+
+  select.innerHTML = includeAll ? `<option value="">Tous les mois</option>${monthOptions}` : monthOptions;
+  select.value = selectedValue;
+}
+
 function byMonth(transaction, month) {
   return !month || transaction.date_transaction.slice(0, 7) === month;
 }
@@ -257,7 +299,7 @@ function initMobileNavigation() {
 
 function initDashboard() {
   const monthInput = document.getElementById("dashboardMonth");
-  monthInput.value = currentMonth();
+  fillMonthSelect(monthInput, currentMonth());
   monthInput.addEventListener("change", () => renderDashboard(monthInput.value));
   renderDashboard(monthInput.value);
 }
@@ -388,7 +430,7 @@ function initTransactionsPage() {
   const category = document.getElementById("filterCategory");
   const search = document.getElementById("filterSearch");
 
-  month.value = currentMonth();
+  fillMonthSelect(month, currentMonth(), true);
   fillFilterCategories(category);
 
   [month, type, category, search].forEach((input) => input.addEventListener("input", renderTransactions));
