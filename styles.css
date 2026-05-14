@@ -765,6 +765,27 @@ th {
 }
 
 @media (max-width: 640px) {
+  .mobile-header {
+    padding: 10px 12px;
+  }
+
+  .mobile-brand strong {
+    font-size: 1rem;
+  }
+
+  .mobile-brand small {
+    font-size: 0.72rem;
+  }
+
+  .mobile-actions {
+    gap: 6px;
+  }
+
+  .icon-button {
+    width: 36px;
+    height: 36px;
+  }
+
   .topbar,
   .panel-heading,
   .form-actions,
@@ -773,8 +794,18 @@ th {
     flex-direction: column;
   }
 
+  .topbar {
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .eyebrow {
+    margin-bottom: 6px;
+    font-size: 0.68rem;
+  }
+
   h1 {
-    font-size: 2.2rem;
+    font-size: 1.9rem;
     line-height: 1;
   }
 
@@ -787,6 +818,19 @@ th {
     width: 100%;
   }
 
+  .control span {
+    font-size: 0.72rem;
+  }
+
+  .control input,
+  .control select {
+    min-height: 40px;
+  }
+
+  .app-shell {
+    padding: 20px 14px calc(104px + env(safe-area-inset-bottom));
+  }
+
   .summary-grid,
   .quick-preview,
   .filters-panel,
@@ -795,12 +839,29 @@ th {
     grid-template-columns: 1fr;
   }
 
+  .summary-grid,
+  .quick-preview,
+  .dashboard-layout,
+  .filters-panel {
+    gap: 10px;
+  }
+
   .metric {
-    min-height: 112px;
+    min-height: 92px;
+    padding: 14px;
   }
 
   .metric strong {
-    font-size: 1.42rem;
+    margin-top: 12px;
+    font-size: 1.28rem;
+  }
+
+  .metric-label {
+    font-size: 0.72rem;
+  }
+
+  .metric small {
+    font-size: 0.88rem;
   }
 
   .panel,
